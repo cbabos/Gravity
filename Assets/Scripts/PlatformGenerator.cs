@@ -41,12 +41,12 @@ public class PlatformGenerator : MonoBehaviour
 
     private Vector3 CalculatePoint(float angle, float radius)
     {
-        return new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+        return new Vector3(Mathf.Sin(angle) * radius, 0, -Mathf.Cos(angle) * radius);
     }
     
     private Vector2 CalculatePointUV(float angle)
     {
-        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        return new Vector2(Mathf.Sin(angle), -Mathf.Cos(angle));
     }
 
     private void AddPieSlice(int startIndex, int originIndex)
