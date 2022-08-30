@@ -67,6 +67,7 @@ public class PlatformGenerator : MonoBehaviour
         _mesh.vertices = _points;
         _mesh.triangles = _tris;
         _mesh.uv = _uvs;
+        _mesh.RecalculateNormals();
     }
 
     private void OnGUI()
