@@ -59,7 +59,6 @@ public class PlatformGenerator : MonoBehaviour
     {
         _tris.Clear();
         int amountOfPoints = CalculateEdgeCount();
-        int smoothness = CalculateSmoothness();
         for (int i = 0; i <= amountOfPoints; i++)
         {
             float angle = Mathf.Deg2Rad * (i * Mathf.Ceil((float) AngleToFill / (amountOfPoints)));
