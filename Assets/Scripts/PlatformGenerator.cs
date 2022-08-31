@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class PlatformGenerator : MonoBehaviour
 {
     
-    [Range(1,10)] public int SmoothnessLevel = 5;
+    [Range(1,10)] public int SmoothnessLevel = 2;
     [Range(1, 360)] public int AngleToFill = 360;
     public float RadiusOfPlatform = 3;
     public Material MaterialToUse;
@@ -19,6 +19,15 @@ public class PlatformGenerator : MonoBehaviour
     private Mesh _mesh;
     private MeshRenderer _meshRenderer;
 
+    public static PlatformGenerator GeneratePlatform(Material platformMaterial, int angleToFill = 330)
+    {
+        GameObject go = new GameObject();
+        PlatformGenerator platformGenerator = go.AddComponent<PlatformGenerator>();
+        platformGenerator.MaterialToUse = platformMaterial;
+        platformGenerator.AngleToFill = angleToFill;
+        return platformGenerator;
+    }
+    
     private void CalculatePoints()
     {
         int amountOfPoints = CalculateEdgeCount() + 2;
@@ -68,19 +77,15 @@ public class PlatformGenerator : MonoBehaviour
         }
 
         _points[amountOfPoints] = CalculatePoint(Mathf.Deg2Rad * AngleToFill, RadiusOfPlatform);
-        _points[amountOfPoints + 1] = Vector3.zero;
+        _points[amountOfPoints + 1] = Vector3.zero + Vector3.up * -.5f;
         _uvs[amountOfPoints + 1] = new Vector2(0, 0);
     }
-    private void Awake()
+    private void Start()
     {
         
         _mesh = gameObject.AddComponent<MeshFilter>().mesh;
         _meshRenderer = gameObject.AddComponent<MeshRenderer>();
         _meshRenderer.sharedMaterial = MaterialToUse;
-    }
-
-    private void Update()
-    {
         RenderObject();
     }
 
@@ -93,7 +98,7 @@ public class PlatformGenerator : MonoBehaviour
         _mesh.RecalculateNormals();
     }
 
-    private void OnGUI()
+    private void _OnGUI()
     {
         foreach (Vector3 point in _points)
         {
